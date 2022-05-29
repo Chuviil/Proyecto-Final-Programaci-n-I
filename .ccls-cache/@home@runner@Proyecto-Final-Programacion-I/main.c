@@ -6,7 +6,7 @@
 
 // Prototipos de las funciones del programa
 
-void registrarUsuario(char[], int);
+void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
 
 // Fin de los prototipos de las funciones del programa
 
@@ -19,8 +19,8 @@ static void printQr(const uint8_t qrcode[]);
 
 int main(void) 
 {
-  int opcion;
-  char mensaje[10];
+  int opcion, cedula;
+  char nombre[20] ,mensaje[10];
   do
   {
     printf("\t\tSeleccion de Perfil\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n");
@@ -71,7 +71,8 @@ int main(void)
           switch(opcion)
           {
             case 1:
-              
+              system("clear");
+              registrarUsuario(nombre, cedula);
             break;
             case 2:
               
@@ -121,6 +122,57 @@ int main(void)
     }
   }while(opcion != 4);
 }
+
+// Declaracion de funciones del programa
+
+void registrarUsuario(char nombre[], int cedula)
+{
+  int opcion;
+  printf("==========================\n\tRegistro de Usuario\n==========================\n\n");
+  printf("Ingrese el nombre: ");
+  getchar();
+  fgets(nombre,20,stdin);
+  nombre[strcspn("nombre","\n")] = 0;
+  do
+  {
+    printf("Ingrese la cedula: ");
+    scanf("%d", &cedula);
+    if(cedula<=0)
+    {
+      printf("\n\033[1;31mCedula invalida!\033[0m\n\n");
+    }
+  }while(!(cedula>0));
+  system("clear");
+  printf("==========================\n\tRegistro de Usuario\n==========================\n\n");
+  printf("Nombre: %s\nCedula: %d\n", nombre, cedula);
+  do
+  {
+    printf("Desea registrar este usuario?\n1)Si\t2)No\nEliga una opcion: ");
+    scanf("%d", &opcion);
+    if(!(opcion>0&&opcion<3))
+    {
+      printf("\n\033[1;31mOpción invalida!\033[0m\n\n");
+    }
+  }while(!(opcion>0&&opcion<3));
+  switch(opcion)
+  {
+    case 1:
+      system("clear");
+      printf("\033[0;32mUsuario Registrado!\033[0m");
+      fflush(stdout);
+      sleep(1);
+    break;
+    case 2:
+      system("clear");
+      printf("\033[1;31mRegresando...\033[0m");
+      fflush(stdout);
+      sleep(1);
+    break;
+  }
+  system("clear");
+}
+
+// Fin de Declaracion de funciones del programa
 
 // Funciones de la generacion de codigos QR
 
