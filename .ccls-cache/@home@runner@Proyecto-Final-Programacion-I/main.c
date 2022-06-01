@@ -7,6 +7,7 @@
 // Prototipos de las funciones del programa
 
 void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
+// ^ Funcion de Ingreso de Datos
 
 // Fin de los prototipos de las funciones del programa
 
@@ -20,10 +21,10 @@ static void printQr(const uint8_t qrcode[]);
 int main(void) 
 {
   int opcion, cedula;
-  char nombre[20] ,mensaje[10];
+  char nombre[20] ,mensaje[100];
   do
   {
-    printf("\t\tSeleccion de Perfil\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n");
+    printf("===========================\n\tSeleccion de Perfil\n===========================\n\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n\n");
     printf("Escoja opcion: ");
     scanf("%d",&opcion);
     switch(opcion)
@@ -32,7 +33,7 @@ int main(void)
         system("clear");
         do
         {
-          printf("\t\tUSUARIO\n1)Consultar Saldo\n2)Depositar Saldo\n3)Adquirir ticket\n4)Salir\nEscoja opcion: ");
+          printf("===============\n\tUSUARIO\n===============\n\n1)Consultar Saldo\n2)Depositar Saldo\n3)Adquirir ticket\n4)Salir\nEscoja opcion: ");
           scanf("%d",&opcion);
           switch(opcion)
           {
@@ -50,9 +51,7 @@ int main(void)
             break;
             default:
               system("clear");
-              printf("\033[1;31m");
-              printf("\nOpcion Invalida intente de nuevo.\n\n");
-              printf("\033[0m");
+              printf("\n\033[1;31mOpcion Invalida intente de nuevo.\n\n\033[0m");
               sleep(1);
               system("clear");
             break;
@@ -66,7 +65,7 @@ int main(void)
         system("clear");
         do
         {
-          printf("\t\tADMINISTRADOR\n1)Registrar Usuario\n2)Eliminar Usuario\n3)Modificar Usuario\n4)Consultar/Buscar Usuario\n5)Volver\nEscoja opcion: ");
+          printf("=====================\n\tADMINISTRADOR\n=====================\n\n1)Registrar Usuario\n2)Eliminar Usuario\n3)Modificar Usuario\n4)Consultar/Buscar Usuario\n5)Volver\nEscoja opcion: ");
           scanf("%d",&opcion);
           switch(opcion)
           {
@@ -109,7 +108,7 @@ int main(void)
       break;
       case 4:
         system("clear");
-        printf("\033[1;31m88888888888 88 888b      88  \n88          88 8888b     88  \n88          88 88 `8b    88  \n88aaaaa     88 88  `8b   88  \n88\"\"\"\"\"     88 88   `8b  88  \n88          88 88    `8b 88  \n88          88 88     `8888  \n88          88 88      `888\n\nFIN DEL PROGRAMA");
+        printf("\033[1;31m _____ ___ _   _ \n|  ___|_ _| \\ | |\n| |_   | ||  \\| |\n|  _|  | || |\\  |\n|_|   |___|_| \\_|\n\nFIN DEL PROGRAMA");
       break;
       default:
         system("clear");
@@ -128,7 +127,7 @@ int main(void)
 void registrarUsuario(char nombre[], int cedula)
 {
   int opcion;
-  printf("==========================\n\tRegistro de Usuario\n==========================\n\n");
+  printf("===========================\n\tRegistro de Usuario\n===========================\n\n");
   printf("Ingrese el nombre: ");
   getchar();
   fgets(nombre,20,stdin);
@@ -143,7 +142,7 @@ void registrarUsuario(char nombre[], int cedula)
     }
   }while(!(cedula>0));
   system("clear");
-  printf("==========================\n\tRegistro de Usuario\n==========================\n\n");
+  printf("===========================\n\tRegistro de Usuario\n===========================\n\n");
   printf("Nombre: %s\nCedula: %d\n", nombre, cedula);
   do
   {
@@ -181,8 +180,7 @@ static void genQrCode(const char *text)
   enum qrcodegen_Ecc errCorLvl = qrcodegen_Ecc_LOW;
   uint8_t qrcode[qrcodegen_BUFFER_LEN_MAX];
 	uint8_t tempBuffer[qrcodegen_BUFFER_LEN_MAX];
-	bool ok = qrcodegen_encodeText(text, tempBuffer, qrcode, errCorLvl,
-		qrcodegen_VERSION_MIN, qrcodegen_VERSION_MAX, qrcodegen_Mask_AUTO, true);
+	bool ok = qrcodegen_encodeText(text, tempBuffer, qrcode, errCorLvl,qrcodegen_VERSION_MIN, qrcodegen_VERSION_MAX, qrcodegen_Mask_AUTO, true);
 	if (ok)
 		printQr(qrcode);
 }
