@@ -12,6 +12,7 @@ void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
 
 void FormatearNombrePIngreso(char[] /*NOMBRE*/);
 void QuitarEspacios(char[] /*NOMBRE*/);
+void FormatearNombrePUso(char[]/*NOMBRE*/);
 
 void consultarUsuario(int /*CEDULA*/);
 
@@ -236,33 +237,66 @@ void QuitarEspacios(char nombre[])
 void consultarUsuario(int cedula)
 {
   struct usuario usuario1;
-  bool encontrado = false;
+  bool encontrado = false, finArchivo;
   FILE *puntero;
   system("clear");
   puntero = fopen("datos/usuarios.txt", "r");
-  while(!feof(puntero))
+  do
   {
+    finArchivo = feof(puntero);
+    memset(usuario1.nombre,0,sizeof usuario1.nombre);
     fscanf(puntero,"%d %s %f", &usuario1.cedula, usuario1.nombre, &usuario1.saldo);
     if(usuario1.cedula == cedula)
     {
       encontrado = true;
+      finArchivo = true;
     }
-  }
+  }while(!finArchivo);
+  fclose(puntero);
+  
   if(encontrado)
   {
     printf("Usuario Encontrado!");
+    FormatearNombrePUso(usuario1.nombre);
     printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$",usuario1.nombre,cedula, usuario1.saldo);
   }
   else
   {
     printf("Usuario No Encontrado!");
   }
-  fclose(puntero);
   getchar();
   getchar();
   system("clear");
 }
 
+void FormatearNombrePUso(char nombre[])
+{
+  int h,i,j,k,l,m;
+  char temp1[25];
+  h = strlen(nombre);
+  for(i=1;i<h;i++)
+  {
+    if(isupper(nombre[i])>0)
+    {
+      k=0;
+      l = strlen(nombre);
+      for(j=i;j<=l;j++)
+      {
+        temp1[k] = nombre[j];
+        k++;
+      }
+      nombre[i] = ' ';
+      k = 0;
+      m = strlen(nombre)+1;
+      for(j=i+1;j<m;j++)
+      {
+        nombre[j] = temp1[k];
+        k++;
+      }
+      i++;
+    }
+  }
+}
 
 // Fin de Declaracion de funciones del programa
 
