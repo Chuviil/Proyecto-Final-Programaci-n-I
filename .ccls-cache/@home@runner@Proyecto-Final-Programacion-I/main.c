@@ -2,12 +2,28 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <ctype.h>
 #include "qrcodegen.h" //Libreria para generacion de codigos QR
 
 // Prototipos de las funciones del programa
 
 void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
 // ^ Funcion de Ingreso de Datos
+
+void FormatearNombrePIngreso(char[] /*NOMBRE*/);
+void QuitarEspacios(char[] /*NOMBRE*/);
+
+void consultarUsuario(int /*CEDULA*/);
+
+// Definicion de estructuras
+
+struct usuario{
+  char nombre[35];
+  int cedula;
+  float saldo;
+};
+
+// Fin de definicion de estructuras
 
 // Fin de los prototipos de las funciones del programa
 
@@ -21,10 +37,10 @@ static void printQr(const uint8_t qrcode[]);
 int main(void) 
 {
   int opcion, cedula;
-  char nombre[20] ,mensaje[100];
+  char nombre[35] ,mensaje[100];
   do
   {
-    printf("===========================\n\tSeleccion de Perfil\n===========================\n\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n\n");
+    printf("===========================\n\tSeleccion de Perfil\n===========================\n\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n");
     printf("Escoja opcion: ");
     scanf("%d",&opcion);
     switch(opcion)
@@ -71,6 +87,7 @@ int main(void)
           {
             case 1:
               system("clear");
+              getchar();
               registrarUsuario(nombre, cedula);
             break;
             case 2:
@@ -80,7 +97,11 @@ int main(void)
               
             break;
             case 4:
-              
+              system("clear");
+              printf("Ingrese la cedula del usuario a consultar: ");
+              scanf("%d", &cedula);
+              consultarUsuario(cedula);
+              cedula = 0;
             break;
             case 5:
               
@@ -127,11 +148,12 @@ int main(void)
 void registrarUsuario(char nombre[], int cedula)
 {
   int opcion;
+  float saldo = 0;
+  FILE *puntero;
   printf("===========================\n\tRegistro de Usuario\n===========================\n\n");
   printf("Ingrese el nombre: ");
-  getchar();
-  fgets(nombre,20,stdin);
-  nombre[strcspn("nombre","\n")] = 0;
+  fgets(nombre,35,stdin);
+  nombre[strcspn(nombre,"\n")] = 0;
   do
   {
     printf("Ingrese la cedula: ");
@@ -157,6 +179,10 @@ void registrarUsuario(char nombre[], int cedula)
   {
     case 1:
       system("clear");
+      FormatearNombrePIngreso(nombre);
+      puntero = fopen("datos/usuarios.txt", "a");
+      fprintf(puntero,"%d %s %.2f\n", cedula, nombre, saldo);
+      fclose(puntero);
       printf("\033[0;32mUsuario Registrado!\033[0m");
       fflush(stdout);
       sleep(1);
@@ -170,6 +196,73 @@ void registrarUsuario(char nombre[], int cedula)
   }
   system("clear");
 }
+
+void FormatearNombrePIngreso(char nombre[])
+{
+  int i;
+  char temp;
+  for(i=0;i<strlen(nombre);i++)
+  {
+    nombre[i] = tolower(nombre[i]);
+  }
+  nombre[0] = toupper(nombre[0]);
+  for(i=0;i<strlen(nombre);i++)
+  {
+    if(nombre[i]==' ')
+    {
+      nombre[i+1] = toupper(nombre[i+1]);
+    }
+  }
+  QuitarEspacios(nombre);
+}
+
+void QuitarEspacios(char nombre[])
+{
+  int i,j;
+  char temp;
+  for(i=0;i<strlen(nombre);i++)
+  {
+    if(nombre[i] == ' ')
+    {
+      for(j=i;j<=strlen(nombre);j++)
+      {
+        temp = nombre[j+1];
+        nombre[j] = temp;
+      }
+    }
+  }
+}
+
+void consultarUsuario(int cedula)
+{
+  struct usuario usuario1;
+  bool encontrado = false;
+  FILE *puntero;
+  system("clear");
+  puntero = fopen("datos/usuarios.txt", "r");
+  while(!feof(puntero))
+  {
+    fscanf(puntero,"%d %s %f", &usuario1.cedula, usuario1.nombre, &usuario1.saldo);
+    if(usuario1.cedula == cedula)
+    {
+      encontrado = true;
+    }
+  }
+  if(encontrado)
+  {
+    printf("Usuario Encontrado!");
+    printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$",usuario1.nombre,cedula, usuario1.saldo);
+  }
+  else
+  {
+    printf("Usuario No Encontrado!");
+  }
+  fclose(puntero);
+  getchar();
+  getchar();
+  system("clear");
+}
+
 
 // Fin de Declaracion de funciones del programa
 
