@@ -5,7 +5,7 @@ Proyecto Final de Programación I UDLA
 
 ## Funcionalidades
 #### Usuario
-* Consulta de Saldo **NI**
+* Consulta de Saldo **✓**
 * Deposito de Saldo **NI**
 * Adquisición de Tickets **NI**
 #### Administrador

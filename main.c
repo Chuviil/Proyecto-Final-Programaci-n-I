@@ -7,14 +7,22 @@
 
 // Prototipos de las funciones del programa
 
+//Uso General
+void FormatearNombrePIngreso(char[] /*NOMBRE*/);
+//^Funcion que formatea el nombre quitando espacios antes de ser guardado en el archivo de texto
+void FormatearNombrePUso(char[]/*NOMBRE*/);
+//^Funcion que elimina el formato dado para uso dentro de la aplicacion
+void QuitarEspacios(char[] /*NOMBRE*/);
+//^Elimina espacios de los nombres para el ingreso al archivo
+
+//Usuario
+void consultarSaldo(int /*CEDULA*/);
+
+//Admin
 void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
 // ^ Funcion de Ingreso de Datos
-
-void FormatearNombrePIngreso(char[] /*NOMBRE*/);
-void QuitarEspacios(char[] /*NOMBRE*/);
-void FormatearNombrePUso(char[]/*NOMBRE*/);
-
 void consultarUsuario(int /*CEDULA*/);
+
 
 // Definicion de estructuras
 
@@ -55,7 +63,10 @@ int main(void)
           switch(opcion)
           {
             case 1:
-              
+              system("clear");
+              printf("Ingrese su numero de cedula: ");
+              scanf("%d",&cedula);
+              consultarSaldo(cedula);
             break;
             case 2:
               
@@ -145,6 +156,41 @@ int main(void)
 }
 
 // Declaracion de funciones del programa
+
+void consultarSaldo(int cedula)
+{
+  struct usuario usuario1;
+  bool encontrado = false, finArchivo;
+  FILE *puntero;
+  system("clear");
+  puntero = fopen("datos/usuarios.txt", "r");
+  do
+  {
+    finArchivo = feof(puntero);
+    memset(usuario1.nombre,0,sizeof usuario1.nombre);
+    fscanf(puntero,"%d %s %f", &usuario1.cedula, usuario1.nombre, &usuario1.saldo);
+    if(usuario1.cedula == cedula)
+    {
+      encontrado = true;
+      finArchivo = true;
+    }
+  }while(!finArchivo);
+  fclose(puntero);
+  
+  if(encontrado)
+  {
+    printf("Usuario Encontrado!");
+    FormatearNombrePUso(usuario1.nombre);
+    printf("\n%s con cedula %d su saldo es: %.2f$",usuario1.nombre,cedula, usuario1.saldo);
+  }
+  else
+  {
+    printf("Usuario No Encontrado!");
+  }
+  getchar();
+  getchar();
+  system("clear");
+}
 
 void registrarUsuario(char nombre[], int cedula)
 {
