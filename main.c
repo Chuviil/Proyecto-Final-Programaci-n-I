@@ -14,14 +14,14 @@ void FormatearNombrePUso(char[]/*NOMBRE*/);
 //^Funcion que elimina el formato dado para uso dentro de la aplicacion
 void QuitarEspacios(char[] /*NOMBRE*/);
 //^Elimina espacios de los nombres para el ingreso al archivo
+bool consultarUsuario(int /*CEDULA*/,char[] /*NOMBRE*/, float* /*SALDO*/);
 
 //Usuario
-void consultarSaldo(int /*CEDULA*/);
+
 
 //Admin
 void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
 // ^ Funcion de Ingreso de Datos
-void consultarUsuario(int /*CEDULA*/);
 
 
 // Definicion de estructuras
@@ -45,8 +45,9 @@ static void printQr(const uint8_t qrcode[]);
 
 int main(void) 
 {
-  int opcion, cedula;
-  char nombre[35] ,mensaje[100];
+  struct usuario usuarioGeneral;
+  int opcion;
+  char mensaje[100];
   do
   {
     printf("===========================\n\tSeleccion de Perfil\n===========================\n\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n");
@@ -65,8 +66,20 @@ int main(void)
             case 1:
               system("clear");
               printf("Ingrese su numero de cedula: ");
-              scanf("%d",&cedula);
-              consultarSaldo(cedula);
+              scanf("%d", &usuarioGeneral.cedula);
+              if(consultarUsuario(usuarioGeneral.cedula,usuarioGeneral.nombre,&usuarioGeneral.saldo))
+              {
+                printf("Usuario Encontrado!\n");
+                FormatearNombrePUso(usuarioGeneral.nombre);
+                printf("%s con cedula %d su saldo es: %.2f$",usuarioGeneral.nombre,usuarioGeneral.cedula, usuarioGeneral.saldo); 
+              }
+              else
+              {
+                printf("Usuario No Encontrado!");
+              }
+              getchar();
+              getchar();
+              system("clear");
             break;
             case 2:
               
@@ -100,7 +113,7 @@ int main(void)
             case 1:
               system("clear");
               getchar();
-              registrarUsuario(nombre, cedula);
+              registrarUsuario(usuarioGeneral.nombre, usuarioGeneral.cedula);
             break;
             case 2:
               
@@ -111,9 +124,21 @@ int main(void)
             case 4:
               system("clear");
               printf("Ingrese la cedula del usuario a consultar: ");
-              scanf("%d", &cedula);
-              consultarUsuario(cedula);
-              cedula = 0;
+              scanf("%d", &usuarioGeneral.cedula);
+              if(consultarUsuario(usuarioGeneral.cedula,usuarioGeneral.nombre,&usuarioGeneral.saldo))
+              {
+               printf("Usuario Encontrado!");
+               FormatearNombrePUso(usuarioGeneral.nombre);
+               printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$",usuarioGeneral.nombre,usuarioGeneral.cedula, usuarioGeneral.saldo); 
+              }
+              else
+              {
+                printf("Usuario No Encontrado!");
+              }
+              getchar();
+              getchar();
+              system("clear");
+              usuarioGeneral.cedula = 0;
             break;
             case 5:
               
@@ -156,41 +181,6 @@ int main(void)
 }
 
 // Declaracion de funciones del programa
-
-void consultarSaldo(int cedula)
-{
-  struct usuario usuario1;
-  bool encontrado = false, finArchivo;
-  FILE *puntero;
-  system("clear");
-  puntero = fopen("datos/usuarios.txt", "r");
-  do
-  {
-    finArchivo = feof(puntero);
-    memset(usuario1.nombre,0,sizeof usuario1.nombre);
-    fscanf(puntero,"%d %s %f", &usuario1.cedula, usuario1.nombre, &usuario1.saldo);
-    if(usuario1.cedula == cedula)
-    {
-      encontrado = true;
-      finArchivo = true;
-    }
-  }while(!finArchivo);
-  fclose(puntero);
-  
-  if(encontrado)
-  {
-    printf("Usuario Encontrado!");
-    FormatearNombrePUso(usuario1.nombre);
-    printf("\n%s con cedula %d su saldo es: %.2f$",usuario1.nombre,cedula, usuario1.saldo);
-  }
-  else
-  {
-    printf("Usuario No Encontrado!");
-  }
-  getchar();
-  getchar();
-  system("clear");
-}
 
 void registrarUsuario(char nombre[], int cedula)
 {
@@ -280,19 +270,19 @@ void QuitarEspacios(char nombre[])
   }
 }
 
-void consultarUsuario(int cedula)
+bool consultarUsuario(int cedula, char nombre[], float *saldo)
 {
-  struct usuario usuario1;
   bool encontrado = false, finArchivo;
+  int cedulatemp;
   FILE *puntero;
   system("clear");
   puntero = fopen("datos/usuarios.txt", "r");
   do
   {
     finArchivo = feof(puntero);
-    memset(usuario1.nombre,0,sizeof usuario1.nombre);
-    fscanf(puntero,"%d %s %f", &usuario1.cedula, usuario1.nombre, &usuario1.saldo);
-    if(usuario1.cedula == cedula)
+    memset(nombre,0,35);
+    fscanf(puntero,"%d %s %f", &cedulatemp, nombre, saldo);
+    if(cedulatemp == cedula)
     {
       encontrado = true;
       finArchivo = true;
@@ -300,19 +290,7 @@ void consultarUsuario(int cedula)
   }while(!finArchivo);
   fclose(puntero);
   
-  if(encontrado)
-  {
-    printf("Usuario Encontrado!");
-    FormatearNombrePUso(usuario1.nombre);
-    printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$",usuario1.nombre,cedula, usuario1.saldo);
-  }
-  else
-  {
-    printf("Usuario No Encontrado!");
-  }
-  getchar();
-  getchar();
-  system("clear");
+  return encontrado;
 }
 
 void FormatearNombrePUso(char nombre[])
