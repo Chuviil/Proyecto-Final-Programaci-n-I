@@ -48,6 +48,9 @@ void registrarUsuario(char[] /*NOMBRE*/, int /*CEDULA*/);
 //Modifica una de las variables(Nombre, Cedula o Saldo) de el usuario ingresado
 void modificarUsuario(int /*CEDULA*/);
 
+//Elimina el usuario ingresado(CEDULA)
+void EliminarUsuario(int /*CEDULA*/);
+
 
 // Definicion de estructuras
 
@@ -182,7 +185,17 @@ int main(void)
               registrarUsuario(usuarioGeneral.nombre, usuarioGeneral.cedula);
             break;
             case 2:
-              
+              system("clear");
+              printf("Ingrese el numero de cedula del usuario a eliminar: ");
+              scanf("%d", &usuarioGeneral.cedula);
+              if(consultarUsuario(usuarioGeneral.cedula,usuarioGeneral.nombre,&usuarioGeneral.saldo))
+              {
+                EliminarUsuario(usuarioGeneral.cedula);
+              }
+              else
+              {
+                printf("\033[1;31mUsuario No Encontrado!\033[0m");
+              }
             break;
             case 3:
               do
@@ -650,6 +663,45 @@ void modificarUsuario(int cedula)
     fflush(stdout);
     sleep(1);
     system("clear");
+  }
+}
+
+void EliminarUsuario(int cedula)
+{
+  char nuevosNombres[MAX_USUARIOS][MAX_NOMBRE_LEN];
+  int indice, opcion, nuevasCedulas[MAX_USUARIOS];
+  float nuevosSaldos[MAX_USUARIOS];
+  
+  obtenerUsuarios(nombres, cedulas, saldos);
+  indice = obtenerIndice(cedula);
+  printf("Se va a eliminar al usuario: \nNombre: %s\nCedula: %d\n Saldo: %.2f$\nDesea continuar?\n1)Si\t2)No\nElija opcion: ",nombres[indice],cedulas[indice],saldos[indice]);
+  scanf("%d", &opcion);
+  switch(opcion)
+  {
+    case 1:
+      for(int i = 0; i < indice; i++)
+      {
+        strcpy(nuevosNombres[i], nombres[i]);
+        nuevasCedulas[i] = cedulas[i];
+        nuevosSaldos[i] = saldos[i];
+      }
+      for(int j = indice+1; j < cantUsuarios; j++)
+      {
+        strcpy(nuevosNombres[j-1], nombres[j]);
+        nuevasCedulas[j-1] = cedulas[j];
+        nuevosSaldos[j-1] = saldos[j];
+      }
+      /*for(int k = 0;k < cantUsuarios-1; k++)
+      {
+        printf("Nombre #%d: %s\nCedula: %d\nSaldo: %.2f\n\n",k, nuevosNombres[k],nuevasCedulas[k],nuevosSaldos[k]);
+      }*/
+      cantUsuarios--;
+      actualizarUsuarios(nuevosNombres, nuevasCedulas, nuevosSaldos);
+    break;
+    case 2:
+    break;
+    default:
+    break;
   }
 }
 // Fin de Declaracion de funciones del programa
