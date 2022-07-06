@@ -36,6 +36,9 @@ void actualizarUsuarios(char[MAX_USUARIOS][MAX_NOMBRE_LEN]/*NOMBRES*/,int[]/*CED
 //Modifica el saldo de el usuario ingresado por el valor ingresado
 void DepositarSaldo(int /*CEDULA*/);
 
+//Adquiere un ticket con el saldo del usuario y lo actualiza
+void AdquirirTicket(int /*CEDULA*/);
+
 //Admin
 
 //Registra un Usuario con la informacion ortorgada
@@ -138,7 +141,17 @@ int main(void)
               DepositarSaldo(usuarioGeneral.cedula);
             break;
             case 3:
-              
+              system("clear");
+              printf("Ingrese su cedula: ");
+              scanf("%d", &usuarioGeneral.cedula);
+              if(consultarUsuario(usuarioGeneral.cedula,usuarioGeneral.nombre,&usuarioGeneral.saldo))
+              {
+                AdquirirTicket(usuarioGeneral.cedula);
+              }
+              else
+              {
+                printf("Usuario No Encontrado!");
+              }
             break;
             case 4:
               
@@ -285,6 +298,60 @@ void DepositarSaldo(int cedula)
   getchar();
   getchar();
   system("clear");
+}
+
+void AdquirirTicket(int cedula)
+{
+  int indiceUsuario, opcion, transac;
+  char objQR[100] = "{cedula: ", temp[MAX_NOMBRE_LEN];
+  srand((unsigned) 15124);
+
+  system("clear");
+  obtenerUsuarios(nombres, cedulas, saldos);
+  indiceUsuario = obtenerIndice(cedula);
+  printf("El precio del ticket es de 0.35$ desea continuar?\n1)Si\t2)No\nElija opcion: ");
+  scanf("%d", &opcion);
+  system("clear");
+  switch(opcion)
+  {
+    case 1:
+      if(saldos[indiceUsuario]>=0.35)
+      {
+        saldos[indiceUsuario] -= 0.35;
+        printf("Ticket Adquirido\nSu nuevo saldo es %.2f$\nPresione Enter para imprimir su ticket", saldos[indiceUsuario]);
+        getchar();
+        getchar();
+        system("clear");
+        transac = rand();
+        sprintf(temp, "%d", usuarioGeneral.cedula);
+        strcat(objQR, temp);
+        strcat(objQR, ",transaccion: ");
+        sprintf(temp, "%d", transac);
+        strcat(objQR, temp);
+        strcat(objQR, "}");
+        genQrCode(objQR);
+        actualizarUsuarios(nombres, cedulas, saldos);
+        printf("Numero de Transaccion: %d\n", transac);
+        printf("Tambien puede usar su numero de transaccion como ticket");
+        getchar();
+        system("clear");
+      } else 
+      {
+        printf("Saldo Insuficiente!\nSu saldo es de %.2f$",saldos[indiceUsuario]);
+      }
+    break;
+    case 2:
+      printf("Accion cancelada por el usuario");
+    break;
+    default:
+      system("clear");
+      printf("\033[1;31m");
+      printf("\nOpcion Invalida intente de nuevo.\n\n");
+      printf("\033[0m");
+      sleep(1);
+      system("clear");
+    break;
+  }
 }
 
 void registrarUsuario(char nombre[], int cedula)
@@ -579,7 +646,10 @@ void modificarUsuario(int cedula)
   }
   else
   {
-    
+    printf("\n\033[1;31mUsuario No Encontrado!\033[0m");
+    fflush(stdout);
+    sleep(1);
+    system("clear");
   }
 }
 // Fin de Declaracion de funciones del programa

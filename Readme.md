@@ -1,5 +1,10 @@
 ## PROYECTO FINAL PROGRAMACIÓN 1
 
+## Integrantes
+- Sebastián Quito
+- Tony Chen
+- Julián Flores
+
 ## Introducción
 Proyecto Final de Programación I UDLA
 
@@ -7,10 +12,10 @@ Proyecto Final de Programación I UDLA
 #### Usuario
 * Consulta de Saldo **✓**
 * Deposito de Saldo **✓**
-* Adquisición de Tickets **NI**
+* Adquisición de Tickets **✓**
 #### Administrador
 * Registro de Usuarios **✓**
-* Eliminacion de Usuarios **NI**
+* Eliminacion de Usuarios **X**
 * Modificicacion de Usuarios **✓**
 * Consulta de Usuarios **✓**
 ## Extra
