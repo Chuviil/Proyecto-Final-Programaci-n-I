@@ -15,7 +15,7 @@ Proyecto Final de Programación I UDLA
 * Adquisición de Tickets **✓**
 #### Administrador
 * Registro de Usuarios **✓**
-* Eliminacion de Usuarios **X**
+* Eliminacion de Usuarios **✓**
 * Modificicacion de Usuarios **✓**
 * Consulta de Usuarios **✓**
 ## Extra
