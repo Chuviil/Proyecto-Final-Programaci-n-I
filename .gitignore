@@ -5,3 +5,6 @@
 
 # Archivos no necesarios
 /.ccls-cache
+
+# Visual Studio Code
+/.vscode
