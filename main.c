@@ -101,14 +101,6 @@ int main(void)
       break;
     case 3:
       system("clear");
-      printf("Ingrese el mensaje a convertir en QR: ");
-      getchar();
-      fgets(mensaje, sizeof mensaje, stdin);
-      strtok(mensaje, "\n");
-      genQrCode(mensaje);
-      break;
-    case 4:
-      system("clear");
       printf("\033[1;31m _____ ___ _   _ \n|  ___|_ _| \\ | |\n| |_   | ||  \\| |\n|  _|  | || |\\  |\n|_|   |___|_| \\_|\n\nFIN DEL PROGRAMA");
       break;
     default:
@@ -120,5 +112,5 @@ int main(void)
       system("clear");
       break;
     }
-  } while (opcion != 4);
+  } while (opcion != 3);
 }

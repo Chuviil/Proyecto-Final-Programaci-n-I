@@ -4,7 +4,7 @@
 //#include <unistd.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "qrcodegen.h"
+//#include "qrcodegen.h"
 
 #define MAX_USUARIOS 100 //Cantidad Maxima de Usuarios
 #define MAX_NOMBRE_LEN 35 //Longitud Maxima de Nombre
@@ -92,7 +92,7 @@ struct usuario{
 
 // Prototipos de las funciones para codigos QR
 
-static void genQrCode(const char *text);
-static void printQr(const uint8_t qrcode[]);
+// static void genQrCode(const char *text);
+// static void printQr(const uint8_t qrcode[]);
 
 // Fin de los prototipos de las funciones para codigos QR
