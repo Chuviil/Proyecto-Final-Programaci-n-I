@@ -12,9 +12,9 @@ void CedulaInvalidaM()
     fflush(stdout);
 }
 
-void UsuarioEncontrado()
+void UsuarioEncontradoM()
 {
-    printf("\n\033[1;32mUsuario Encontrado!\033[0m\n")
+    printf("\n\033[1;32mUsuario Encontrado!\033[0m\n");
         fflush(stdout);
 }
 

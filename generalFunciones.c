@@ -69,7 +69,6 @@ void obtenerUsuarios()
   }
   fclose(puntero);
   cantUsuarios = index - 1;
-  return cantUsuarios;
 }
 
 void FormatearNombrePIngreso(char nombre[])
