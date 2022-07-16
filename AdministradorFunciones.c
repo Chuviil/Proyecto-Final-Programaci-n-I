@@ -1,5 +1,13 @@
 #include "ProyectoLib.h"
 
+//Variables Globales
+
+extern int cedulas[MAX_USUARIOS];
+extern char nombres[MAX_USUARIOS][MAX_NOMBRE_LEN];
+extern float saldos[MAX_USUARIOS];
+extern int cantUsuarios;
+extern struct usuario usuarioGeneral;
+
 void registrarUsuario()
 {
     int opcion, cedula;

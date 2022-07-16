@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include "ProyectoLib.h"
 
+//Variables Globales
+
+int cedulas[MAX_USUARIOS];
+char nombres[MAX_USUARIOS][MAX_NOMBRE_LEN];
+float saldos[MAX_USUARIOS];
+int cantUsuarios;
+struct usuario usuarioGeneral;
+
 int main(void)
 {
   int opcion;
@@ -62,24 +70,24 @@ int main(void)
           modificarUsuario();
           break;
         case 4:
-          system("clear");
-          printf("Ingrese la cedula del usuario a consultar: ");
-          scanf("%d", &usuarioGeneral.cedula);
-          if (consultarUsuario(usuarioGeneral.cedula, usuarioGeneral.nombre, &usuarioGeneral.saldo))
-          {
-            printf("Usuario Encontrado!");
-            FormatearNombrePUso(usuarioGeneral.nombre);
-            printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$", usuarioGeneral.nombre, usuarioGeneral.cedula, usuarioGeneral.saldo);
-          }
-          else
-          {
-            printf("Usuario No Encontrado!");
-          }
-          getchar();
-          getchar();
-          system("clear");
-          usuarioGeneral.cedula = 0;
-          break;
+          // system("clear");
+          // printf("Ingrese la cedula del usuario a consultar: ");
+          // scanf("%d", &usuarioGeneral.cedula);
+          // if (consultarUsuario(usuarioGeneral.cedula))
+          // {
+          //   printf("Usuario Encontrado!");
+          //   FormatearNombrePUso(usuarioGeneral.nombre);
+          //   printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$", usuarioGeneral.nombre, usuarioGeneral.cedula, usuarioGeneral.saldo);
+          // }
+          // else
+          // {
+          //   printf("Usuario No Encontrado!");
+          // }
+          // getchar();
+          // getchar();
+          // system("clear");
+          // usuarioGeneral.cedula = 0;
+          // break;
         case 5:
 
           break;
