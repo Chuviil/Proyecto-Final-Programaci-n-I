@@ -15,7 +15,7 @@ int main(void)
   char mensaje[100];
   do
   {
-    printf("===========================\n\tSeleccion de Perfil\n===========================\n\n1)Usuario\n2)Administrador\n3)Pruebas\n4)Salir\n");
+    printf("===========================\n\tSeleccion de Perfil\n===========================\n\n1)Usuario\n2)Administrador\n3)Salir\n");
     printf("Escoja opcion: ");
     scanf("%d", &opcion);
     switch (opcion)

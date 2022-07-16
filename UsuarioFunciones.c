@@ -54,7 +54,7 @@ void DepositarSaldo()
     } while (!(usuarioGeneral.cedula > 0));
     if (consultarUsuario(usuarioGeneral.cedula))
     {
-        indice = obtenerIndice(cedulas);
+        indice = obtenerIndice(usuarioGeneral.cedula);
         UsuarioEncontradoM();
         printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$\nDesea continuar?\n1)Si\t2)No\nElija una opcion: ", nombres[indice], cedulas[indice], saldos[indice]);
         scanf("%d", &opcion);
