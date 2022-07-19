@@ -92,7 +92,8 @@ int main(void)
       printf("\033[1;31m");
       printf("\nOpcion Invalida intente de nuevo.\n\n");
       printf("\033[0m");
-      sleep(1);
+      getchar();
+      getchar();
       system("clear");
       break;
     }

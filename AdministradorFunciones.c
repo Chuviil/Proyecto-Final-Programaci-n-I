@@ -93,9 +93,11 @@ void EliminarUsuario()
     {
         obtenerUsuarios();
         indice = obtenerIndice(usuarioGeneral.cedula);
-        printf("Se va a eliminar al usuario: \nNombre: %s\nCedula: %d\n Saldo: %.2f$\nDesea continuar?\n1)Si\t2)No\nElija opcion: ", nombres[indice], cedulas[indice], saldos[indice]);
+        system("clear");
+        printf("Se va a eliminar al usuario: \nNombre: %s\nCedula: %d\n Saldo: %.2f$\nDesea continuar?\n1)Si\t2)No", nombres[indice], cedulas[indice], saldos[indice]);
         do
         {
+            printf("\nElija opcion: ");
             scanf("%d", &opcion);
             if (!(opcion > 0 && opcion < 3))
             {
@@ -123,8 +125,16 @@ void EliminarUsuario()
             }*/
             cantUsuarios--;
             actualizarUsuarios(nuevosNombres, nuevasCedulas, nuevosSaldos);
+            system("clear");
+            printf("\n\033[1;32mUsuario Eliminado!\033[0m\n");
             break;
         case 2:
+            system("clear");
+            printf("\033[1;31mCancelado por el Usuario\033[0m");
+            fflush(stdout);
+            getchar();
+            getchar();
+            break;
             break;
         default:
             break;
@@ -162,9 +172,10 @@ void modificarUsuario()
         do
         {
             system("clear");
-            printf("============================\n\tMODIFICACION USUARIO\n============================\n\nNombre: %s\nCedula: %d\nSaldo: %.2f$\n\nQue desea modificar?\n1)Nombre\n2)Cedula\n3)Saldo\n4)Salir\nElija una opcion: ", nombres[indice], cedulas[indice], saldos[indice]);
+            printf("============================\n\tMODIFICACION USUARIO\n============================\n\nNombre: %s\nCedula: %d\nSaldo: %.2f$\n\nQue desea modificar?\n1)Nombre\n2)Cedula\n3)Saldo\n4)Salir", nombres[indice], cedulas[indice], saldos[indice]);
             do
             {
+                printf("\nElija una opcion: ");
                 scanf("%d", &opcion);
                 if (!(opcion > 0 && opcion < 5))
                 {
@@ -175,10 +186,11 @@ void modificarUsuario()
             {
             case 1:
                 system("clear");
-                printf("==========================\n\tModificando Nombre\n==========================\n\nIngrese el nuevo nombre: ");
+                printf("==========================\n\tModificando Nombre\n==========================\n");
                 getchar();
                 do
                 {
+                    printf("\nIngrese el nuevo nombre: ");
                     fgets(UsuarioTemp.nombre, MAX_NOMBRE_LEN, stdin);
                     if (!(strlen(UsuarioTemp.nombre) > 1))
                     {
@@ -189,9 +201,10 @@ void modificarUsuario()
                 system("clear");
                 do
                 {
-                    printf("==========================\n\tModificando Nombre\n==========================\n\nAnterior Nombre: %s\nNuevo Nombre: %s\n\nDesea realizar el cambio?\n1)Si\t2)No\nElija una opcion: ", nombres[indice], UsuarioTemp.nombre);
+                    printf("==========================\n\tModificando Nombre\n==========================\n\nAnterior Nombre: %s\nNuevo Nombre: %s\n\nDesea realizar el cambio?\n1)Si\t2)No", nombres[indice], UsuarioTemp.nombre);
                     do
                     {
+                        printf("\nElija una opcion: ");
                         scanf("%d", &modOpcion);
                         if (!(modOpcion > 0 && modOpcion < 3))
                         {
@@ -218,9 +231,10 @@ void modificarUsuario()
                 break;
             case 2:
                 system("clear");
-                printf("==========================\n\tModificando Cedula\n==========================\n\nIngrese la nueva cedula: ");
+                printf("==========================\n\tModificando Cedula\n==========================\n");
                 do
                 {
+                    printf("\nIngrese la nueva cedula: ");
                     scanf("%d", &UsuarioTemp.cedula);
                     if (!(UsuarioTemp.cedula > 0))
                     {
@@ -231,9 +245,10 @@ void modificarUsuario()
                 system("clear");
                 do
                 {
-                    printf("==========================\n\tModificando Cedula\n==========================\n\nAnterior Cedula: %d\nNueva Cedula: %d\n\nDesea realizar el cambio?\n1)Si\t2)No\nElija una opcion: ", cedulas[indice], UsuarioTemp.cedula);
+                    printf("==========================\n\tModificando Cedula\n==========================\n\nAnterior Cedula: %d\nNueva Cedula: %d\n\nDesea realizar el cambio?\n1)Si\t2)No", cedulas[indice], UsuarioTemp.cedula);
                     do
                     {
+                        printf("\nElija una opcion: ");
                         scanf("%d", &modOpcion);
                         if (!(modOpcion > 0 && modOpcion < 3))
                         {
@@ -258,17 +273,22 @@ void modificarUsuario()
                 break;
             case 3:
                 system("clear");
-                printf("==========================\n\tModificando Saldo\n==========================\n\nIngrese el nuevo saldo: ");
+                printf("==========================\n\tModificando Saldo\n==========================\n");
                 do
                 {
+                    printf("\nIngrese el nuevo saldo: ");
                     scanf("%f", &UsuarioTemp.saldo);
                 } while (!(UsuarioTemp.saldo > 0));
 
                 system("clear");
                 do
                 {
-                    printf("==========================\n\tModificando Saldo\n==========================\n\nAnterior Saldo: %.2f$\nNuevo Saldo: %.2f$\n\nDesea realizar el cambio?\n1)Si\t2)No\nElija una opcion: ", saldos[indice], UsuarioTemp.saldo);
-                    scanf("%d", &modOpcion);
+                    printf("==========================\n\tModificando Saldo\n==========================\n\nAnterior Saldo: %.2f$\nNuevo Saldo: %.2f$\n\nDesea realizar el cambio?\n1)Si\t2)No", saldos[indice], UsuarioTemp.saldo);
+                    do
+                    {
+                        printf("\nElija una opcion: ");
+                        scanf("%d", &modOpcion);
+                    } while (!(modOpcion > 0 && modOpcion < 3));
                     switch (modOpcion)
                     {
                     case 1:

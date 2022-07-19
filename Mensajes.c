@@ -2,7 +2,7 @@
 
 void OpcionInvalidaM()
 {
-    printf("\n\033[1;31mOpcion Invalida\\n\033[0m");
+    printf("\n\033[1;31mOpcion Invalida\n\033[0m");
     fflush(stdout);
 }
 
