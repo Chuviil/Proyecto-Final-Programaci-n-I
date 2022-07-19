@@ -1,6 +1,6 @@
 #include "ProyectoLib.h"
 
-//Variables Globales
+// Variables Globales
 
 extern int cedulas[MAX_USUARIOS];
 extern char nombres[MAX_USUARIOS][MAX_NOMBRE_LEN];
@@ -24,6 +24,7 @@ void ConsultarSaldo()
     } while (!(usuarioGeneral.cedula > 0));
     if (consultarUsuario(usuarioGeneral.cedula))
     {
+        system("clear");
         UsuarioEncontradoM();
         indice = obtenerIndice(usuarioGeneral.cedula);
         printf("%s con cedula %d su saldo es: %.2f$", nombres[indice], cedulas[indice], saldos[indice]);
@@ -56,14 +57,25 @@ void DepositarSaldo()
     {
         indice = obtenerIndice(usuarioGeneral.cedula);
         UsuarioEncontradoM();
-        printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$\nDesea continuar?\n1)Si\t2)No\nElija una opcion: ", nombres[indice], cedulas[indice], saldos[indice]);
-        scanf("%d", &opcion);
+        printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$\nDesea continuar?\n1)Si\t2)No", nombres[indice], cedulas[indice], saldos[indice]);
+        do
+        {
+            printf("\nElija una opcion: ");
+            scanf("%d", &opcion);
+        } while (!(opcion > 0 && opcion < 3));
         system("clear");
         switch (opcion)
         {
         case 1:
-            printf("Ingrese cuanto saldo desea depositar: ");
-            scanf("%f", &deposito);
+            do
+            {
+                printf("Ingrese cuanto saldo desea depositar: ");
+                scanf("%f", &deposito);
+                if (!(deposito > 0))
+                {
+                    printf("\n\033[1;31mCantidad Invalida!\033[0m\n");
+                }
+            } while (!(deposito > 0));
             system("clear");
             printf("Gracias por su deposito\n\nNombre: %s\nCedula: %d\nSaldo anterior: %.2f$\nNuevo Saldo: %.2f$ ", nombres[indice], cedulas[indice], saldos[indice], saldos[indice] + deposito);
             saldos[indice] += deposito;
@@ -73,13 +85,13 @@ void DepositarSaldo()
             printf("Regresando...");
             break;
         default:
-            printf("Opcion Invalida");
+            OpcionInvalidaM();
             break;
         }
     }
     else
     {
-        printf("Usuario No Encontrado!");
+        UsuarioNoEncontradoM();
     }
     fflush(stdout);
     getchar();
@@ -140,10 +152,16 @@ void AdquirirTicket()
             else
             {
                 printf("\033[1;31mSaldo Insuficiente!\033[0m\nSu saldo es de %.2f$", saldos[indiceUsuario]);
+                getchar();
+                getchar();
+                system("clear");
             }
             break;
         case 2:
-            printf("Accion cancelada por el usuario");
+            printf("\n\033[1;31mAccion cancelada por el Usuario!\033[0m\n");
+            getchar();
+            getchar();
+            system("clear");
             break;
         default:
             OpcionInvalidaM();

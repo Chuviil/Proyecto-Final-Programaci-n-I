@@ -134,6 +134,7 @@ void EliminarUsuario()
             fflush(stdout);
             getchar();
             getchar();
+            system("clear");
             break;
             break;
         default:
@@ -338,7 +339,7 @@ void UsuarioConsultar()
     }
     else
     {
-        printf("Usuario No Encontrado!");
+        UsuarioNoEncontradoM();
     }
     getchar();
     getchar();
