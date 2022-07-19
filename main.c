@@ -11,6 +11,7 @@ struct usuario usuarioGeneral;
 
 int main(void)
 {
+  system("clear");
   int opcion;
   char mensaje[100];
   do
@@ -45,6 +46,7 @@ int main(void)
           OpcionInvalidaM();
           getchar();
           getchar();
+          system("clear");
           break;
         }
       } while (opcion != 4);
@@ -63,7 +65,6 @@ int main(void)
           registrarUsuario();
           break;
         case 2:
-          system("clear");
           EliminarUsuario();
           break;
         case 3:
@@ -78,6 +79,9 @@ int main(void)
         default:
           system("clear");
           OpcionInvalidaM();
+          getchar();
+          getchar();
+          system("clear");
           break;
         }
       } while (opcion != 5);
@@ -89,9 +93,7 @@ int main(void)
       break;
     default:
       system("clear");
-      printf("\033[1;31m");
-      printf("\nOpcion Invalida intente de nuevo.\n\n");
-      printf("\033[0m");
+      OpcionInvalidaM();
       getchar();
       getchar();
       system("clear");

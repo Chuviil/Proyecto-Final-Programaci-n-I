@@ -94,7 +94,7 @@ void EliminarUsuario()
         obtenerUsuarios();
         indice = obtenerIndice(usuarioGeneral.cedula);
         system("clear");
-        printf("Se va a eliminar al usuario: \nNombre: %s\nCedula: %d\n Saldo: %.2f$\nDesea continuar?\n1)Si\t2)No", nombres[indice], cedulas[indice], saldos[indice]);
+        printf("Se va a eliminar al usuario: \nNombre: %s\nCedula: %d\nSaldo: %.2f$\nDesea continuar?\n1)Si\t2)No", nombres[indice], cedulas[indice], saldos[indice]);
         do
         {
             printf("\nElija opcion: ");
@@ -127,6 +127,9 @@ void EliminarUsuario()
             actualizarUsuarios(nuevosNombres, nuevasCedulas, nuevosSaldos);
             system("clear");
             printf("\n\033[1;32mUsuario Eliminado!\033[0m\n");
+            getchar();
+            getchar();
+            system("clear");
             break;
         case 2:
             system("clear");
@@ -172,6 +175,7 @@ void modificarUsuario()
         indice = obtenerIndice(usuarioGeneral.cedula);
         do
         {
+            obtenerUsuarios();
             system("clear");
             printf("============================\n\tMODIFICACION USUARIO\n============================\n\nNombre: %s\nCedula: %d\nSaldo: %.2f$\n\nQue desea modificar?\n1)Nombre\n2)Cedula\n3)Saldo\n4)Salir", nombres[indice], cedulas[indice], saldos[indice]);
             do
@@ -306,7 +310,6 @@ void modificarUsuario()
                 } while (!(modOpcion > 0 && modOpcion < 3));
                 break;
             case 4:
-                sleep(1);
                 system("clear");
                 break;
             default:
@@ -328,8 +331,15 @@ void UsuarioConsultar()
 {
     int indice;
     system("clear");
+    do
+    {
     printf("Ingrese la cedula del usuario a consultar: ");
     scanf("%d", &usuarioGeneral.cedula);
+    if(!(usuarioGeneral.cedula > 0))
+    {
+        CedulaInvalidaM();
+    }
+    } while (!(usuarioGeneral.cedula > 0));
     if (consultarUsuario(usuarioGeneral.cedula))
     {
         UsuarioEncontradoM();

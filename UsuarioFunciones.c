@@ -20,6 +20,9 @@ void ConsultarSaldo()
         {
             system("clear");
             CedulaInvalidaM();
+            getchar();
+            getchar();
+            system("clear");
         }
     } while (!(usuarioGeneral.cedula > 0));
     if (consultarUsuario(usuarioGeneral.cedula))
@@ -31,6 +34,7 @@ void ConsultarSaldo()
     }
     else
     {
+        system("clear");
         UsuarioNoEncontradoM();
     }
     getchar();
@@ -62,6 +66,13 @@ void DepositarSaldo()
         {
             printf("\nElija una opcion: ");
             scanf("%d", &opcion);
+            if (!(opcion > 0 && opcion < 3))
+            {
+                system("clear");
+                OpcionInvalidaM();
+                getchar();
+                getchar();
+            }
         } while (!(opcion > 0 && opcion < 3));
         system("clear");
         switch (opcion)
@@ -73,7 +84,10 @@ void DepositarSaldo()
                 scanf("%f", &deposito);
                 if (!(deposito > 0))
                 {
+                    system("clear");
                     printf("\n\033[1;31mCantidad Invalida!\033[0m\n");
+                    getchar();
+                    getchar();
                 }
             } while (!(deposito > 0));
             system("clear");
@@ -82,7 +96,7 @@ void DepositarSaldo()
             actualizarUsuarios(nombres, cedulas, saldos);
             break;
         case 2:
-            printf("Regresando...");
+            printf("\n\033[1;31mAccion cancelada por el Usuario!\033[0m\n");
             break;
         default:
             OpcionInvalidaM();
@@ -114,6 +128,9 @@ void AdquirirTicket()
         {
             system("clear");
             CedulaInvalidaM();
+            getchar();
+            getchar();
+            system("clear");
         }
     } while (!(usuarioGeneral.cedula > 0));
     if (consultarUsuario(usuarioGeneral.cedula))
@@ -122,8 +139,20 @@ void AdquirirTicket()
         obtenerUsuarios();
         indiceUsuario = obtenerIndice(usuarioGeneral.cedula);
         UsuarioEncontradoM();
-        printf("El precio del ticket es de 0.35$ desea continuar?\n1)Si\t2)No\nElija opcion: ");
-        scanf("%d", &opcion);
+        printf("El precio del ticket es de 0.35$ desea continuar?\n1)Si\t2)No");
+        do
+        {
+            printf("\nElija opcion: ");
+            scanf("%d", &opcion);
+            if (!(opcion > 0 && opcion < 3))
+            {
+                system("clear");
+                OpcionInvalidaM();
+                getchar();
+                getchar();
+                system("clear");
+            }
+        } while (!(opcion > 0 && opcion < 3));
         system("clear");
         switch (opcion)
         {
@@ -162,9 +191,6 @@ void AdquirirTicket()
             getchar();
             getchar();
             system("clear");
-            break;
-        default:
-            OpcionInvalidaM();
             break;
         }
     }

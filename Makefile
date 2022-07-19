@@ -11,6 +11,5 @@ exec:
 	mkdir -p datos
 	touch ./datos/usuarios.txt
 	./proyectoC
-	clear
 clean:
 	rm -rf *.o
