@@ -165,7 +165,7 @@ void AdquirirTicket()
                 sprintf(temp, "%d", transac);
                 strcat(objQR, temp);
                 strcat(objQR, "}");
-                // genQrCode(objQR);
+                genQrCode(objQR);
                 actualizarUsuarios(nombres, cedulas, saldos);
                 printf("Numero de Transaccion: %d\n", transac);
                 printf("Tambien puede usar su numero de transaccion como ticket");
