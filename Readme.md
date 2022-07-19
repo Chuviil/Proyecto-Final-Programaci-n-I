@@ -6,7 +6,11 @@
 - Julián Flores
 
 ## Introducción
-Proyecto Final de Programación I UDLA
+Proyecto Final de Programación I aplicación de consola con 2 tipos de usuario:
+- Administrador
+- Usuario
+
+Cada uno con sus funcionalidades, la aplicacion permite a los Usuarios adquirir tickets para el bus.
 
 ## Funcionalidades
 #### Usuario
