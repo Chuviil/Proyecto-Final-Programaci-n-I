@@ -45,6 +45,7 @@ void DepositarSaldo();
 //Adquiere un ticket con el saldo del usuario y lo actualiza
 void AdquirirTicket();
 
+
 //Admin
 
 //Registra un Usuario con la informacion ortorgada
@@ -56,6 +57,9 @@ void modificarUsuario();
 
 //Elimina el usuario ingresado(CEDULA)
 void EliminarUsuario();
+
+//Consulta si existe un Usuario
+void UsuarioConsultar();
 
 // Fin de los prototipos de las funciones del programa
 

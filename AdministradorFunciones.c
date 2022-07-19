@@ -1,6 +1,6 @@
 #include "ProyectoLib.h"
 
-//Variables Globales
+// Variables Globales
 
 extern int cedulas[MAX_USUARIOS];
 extern char nombres[MAX_USUARIOS][MAX_NOMBRE_LEN];
@@ -301,4 +301,27 @@ void modificarUsuario()
         getchar();
         system("clear");
     }
+}
+
+void UsuarioConsultar()
+{
+    int indice;
+    system("clear");
+    printf("Ingrese la cedula del usuario a consultar: ");
+    scanf("%d", &usuarioGeneral.cedula);
+    if (consultarUsuario(usuarioGeneral.cedula))
+    {
+        UsuarioEncontradoM();
+        obtenerUsuarios();
+        obtenerIndice(usuarioGeneral.cedula);
+        printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$", nombres[indice], cedulas[indice], saldos[indice]);
+    }
+    else
+    {
+        printf("Usuario No Encontrado!");
+    }
+    getchar();
+    getchar();
+    system("clear");
+    usuarioGeneral.cedula = 0;
 }

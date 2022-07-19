@@ -70,24 +70,8 @@ int main(void)
           modificarUsuario();
           break;
         case 4:
-          // system("clear");
-          // printf("Ingrese la cedula del usuario a consultar: ");
-          // scanf("%d", &usuarioGeneral.cedula);
-          // if (consultarUsuario(usuarioGeneral.cedula))
-          // {
-          //   printf("Usuario Encontrado!");
-          //   FormatearNombrePUso(usuarioGeneral.nombre);
-          //   printf("\nNombre: %s\nCedula: %d\nSaldo: %.2f$", usuarioGeneral.nombre, usuarioGeneral.cedula, usuarioGeneral.saldo);
-          // }
-          // else
-          // {
-          //   printf("Usuario No Encontrado!");
-          // }
-          // getchar();
-          // getchar();
-          // system("clear");
-          // usuarioGeneral.cedula = 0;
-          // break;
+          UsuarioConsultar();
+          break;
         case 5:
 
           break;
