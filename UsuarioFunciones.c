@@ -68,10 +68,7 @@ void DepositarSaldo()
             scanf("%d", &opcion);
             if (!(opcion > 0 && opcion < 3))
             {
-                system("clear");
                 OpcionInvalidaM();
-                getchar();
-                getchar();
             }
         } while (!(opcion > 0 && opcion < 3));
         system("clear");
@@ -84,10 +81,7 @@ void DepositarSaldo()
                 scanf("%f", &deposito);
                 if (!(deposito > 0))
                 {
-                    system("clear");
                     printf("\n\033[1;31mCantidad Invalida!\033[0m\n");
-                    getchar();
-                    getchar();
                 }
             } while (!(deposito > 0));
             system("clear");
@@ -198,5 +192,8 @@ void AdquirirTicket()
     {
         system("clear");
         UsuarioNoEncontradoM();
+        getchar();
+        getchar();
+        system("clear");
     }
 }
